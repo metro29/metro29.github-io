@@ -1,101 +1,76 @@
+console.log("JS LOADED"); // ← debug proof
+
 const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
 const music = document.getElementById("music");
 const timeEl = document.getElementById("time");
 
-let timeLeft = 15;
+let time = 15;
 
-/* ⏳ Countdown timer */
-const timer = setInterval(() => {
-  timeLeft--;
-  timeEl.textContent = timeLeft;
-
-  if (timeLeft <= 0) {
-    clearInterval(timer);
-    timeEl.textContent = "∞";
+/* ⏳ TIMER */
+setInterval(() => {
+  time--;
+  if (time > 0) {
+    timeEl.textContent = time;
   }
 }, 1000);
 
-/* 🧲 Proximity-based escape (NO hover required) */
-function repel(x, y) {
+/* 🚫 MOVE NO BUTTON WHEN CURSOR GETS CLOSE */
+document.addEventListener("mousemove", (e) => {
   const rect = noBtn.getBoundingClientRect();
-  const btnX = rect.left + rect.width / 2;
-  const btnY = rect.top + rect.height / 2;
+  const bx = rect.left + rect.width / 2;
+  const by = rect.top + rect.height / 2;
 
-  const dist = Math.hypot(x - btnX, y - btnY);
+  const dist = Math.hypot(e.clientX - bx, e.clientY - by);
 
-  if (dist < 180) {
+  if (dist < 150) {
     moveNo();
   }
-}
-
-document.addEventListener("mousemove", e => repel(e.clientX, e.clientY));
-document.addEventListener("touchmove", e => {
-  const t = e.touches[0];
-  repel(t.clientX, t.clientY);
 });
 
-/* 🏃‍♂️ Teleport NO button */
 function moveNo() {
-  const padding = 100;
+  const padding = 80;
   const x = Math.random() * (window.innerWidth - padding * 2) + padding;
   const y = Math.random() * (window.innerHeight - padding * 2) + padding;
 
-  noBtn.style.left = `${x}px`;
-  noBtn.style.top = `${y}px`;
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
 }
 
-/* 💥 Heart explosion */
-function explodeHearts() {
-  for (let i = 0; i < 60; i++) {
-    const heart = document.createElement("div");
-    heart.textContent = "💖";
-    heart.style.position = "fixed";
-    heart.style.left = "50%";
-    heart.style.top = "50%";
-    heart.style.fontSize = "24px";
-    heart.style.pointerEvents = "none";
+/* 💥 HEART EXPLOSION */
+function explode() {
+  for (let i = 0; i < 40; i++) {
+    const h = document.createElement("div");
+    h.textContent = "💖";
+    h.style.position = "fixed";
+    h.style.left = "50%";
+    h.style.top = "50%";
+    h.style.fontSize = "24px";
+    h.style.pointerEvents = "none";
 
     const angle = Math.random() * Math.PI * 2;
-    const distance = Math.random() * 400;
+    const dist = Math.random() * 300;
 
-    heart.animate([
+    h.animate([
       { transform: "translate(0,0)", opacity: 1 },
       {
-        transform: `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`,
+        transform: `translate(${Math.cos(angle)*dist}px, ${Math.sin(angle)*dist}px)`,
         opacity: 0
       }
-    ], {
-      duration: 1200,
-      easing: "ease-out"
-    });
+    ], { duration: 1000 });
 
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 1200);
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 1000);
   }
 }
 
-/* 💖 YES click */
+/* 💖 YES BUTTON */
 yesBtn.addEventListener("click", () => {
-  clearInterval(timer);
   music.play();
-  explodeHearts();
+  explode();
 
   document.body.innerHTML = `
-    <div style="
-      height:100vh;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      background:linear-gradient(135deg,#ff4e78,#ff8fab);
-      color:white;
-      font-family:'Playfair Display',serif;
-      text-align:center;
-    ">
-      <h1 style="font-size:4rem;">Laura 💖</h1>
-      <h2 style="font-size:2.5rem;">You’re my Valentine.</h2>
-      <p style="font-size:1.6rem;">Best choice ever 💘</p>
-    </div>
+    <h1 style="margin-top:40vh;">Laura 💖</h1>
+    <h2>You’re my Valentine.</h2>
   `;
 });
