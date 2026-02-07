@@ -1,0 +1,48 @@
+body {
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  text-align: center;
+  color: white;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+.buttons {
+  margin-top: 30px;
+  position: relative;
+  height: 150px;
+}
+
+button {
+  font-size: 1.5rem;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#yesBtn {
+  background-color: #4caf50;
+  color: white;
+}
+
+#noBtn {
+  background-color: #f44336;
+  color: white;
+  position: absolute;
+}
+
+#message {
+  margin-top: 30px;
+  font-size: 2rem;
+}
