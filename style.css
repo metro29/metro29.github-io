@@ -1,63 +1,44 @@
-* {
-  box-sizing: border-box;
-}
-
 body {
   margin: 0;
   height: 100vh;
   background: linear-gradient(135deg, #ff4e78, #ff8fab);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: "Poppins", sans-serif;
-  overflow: hidden;
+  font-family: Arial, sans-serif;
   color: white;
+  text-align: center;
+  overflow: hidden;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-weight: normal;
 }
 
 #timer {
   position: absolute;
-  top: 20px;
-  font-size: 1.2rem;
-  font-weight: 500;
+  top: 15px;
+  width: 100%;
 }
 
-.card {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(14px);
-  padding: 50px 60px;
-  border-radius: 30px;
-  text-align: center;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-}
-
-h1 {
-  font-family: "Playfair Display", serif;
-  font-size: 3.2rem;
-  margin-bottom: 10px;
-}
-
-h2 {
-  font-weight: 300;
-  margin-bottom: 40px;
-}
-
-.buttons {
+#buttons {
   position: relative;
-  height: 160px;
+  height: 200px;
+  margin-top: 40px;
 }
 
 button {
-  font-size: 1.5rem;
-  padding: 16px 38px;
+  font-size: 1.4rem;
+  padding: 15px 30px;
   border: none;
-  border-radius: 16px;
+  border-radius: 12px;
   cursor: pointer;
 }
 
 #yes {
   background: #4caf50;
   color: white;
-  box-shadow: 0 12px 25px rgba(0,0,0,0.3);
 }
 
 #no {
@@ -67,5 +48,5 @@ button {
   left: 50%;
   top: 80px;
   transform: translateX(-50%);
-  pointer-events: none; /* 🚫 UNHOVERABLE */
+  pointer-events: none; /* 🚫 literally cannot be hovered */
 }
