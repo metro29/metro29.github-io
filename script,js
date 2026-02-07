@@ -1,18 +1,101 @@
-const noBtn = document.getElementById("noBtn");
-const yesBtn = document.getElementById("yesBtn");
-const message = document.getElementById("message");
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+const music = document.getElementById("music");
+const timeEl = document.getElementById("time");
 
-noBtn.addEventListener("mouseover", moveButton);
-noBtn.addEventListener("touchstart", moveButton);
+let timeLeft = 15;
 
-function moveButton() {
-  const x = Math.random() * 300 - 150;
-  const y = Math.random() * 200 - 100;
+/* ⏳ Countdown timer */
+const timer = setInterval(() => {
+  timeLeft--;
+  timeEl.textContent = timeLeft;
 
-  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+  if (timeLeft <= 0) {
+    clearInterval(timer);
+    timeEl.textContent = "∞";
+  }
+}, 1000);
+
+/* 🧲 Proximity-based escape (NO hover required) */
+function repel(x, y) {
+  const rect = noBtn.getBoundingClientRect();
+  const btnX = rect.left + rect.width / 2;
+  const btnY = rect.top + rect.height / 2;
+
+  const dist = Math.hypot(x - btnX, y - btnY);
+
+  if (dist < 180) {
+    moveNo();
+  }
 }
 
-yesBtn.addEventListener("click", () => {
-  message.textContent = "YAY 💕 Best Valentine ever 💘";
+document.addEventListener("mousemove", e => repel(e.clientX, e.clientY));
+document.addEventListener("touchmove", e => {
+  const t = e.touches[0];
+  repel(t.clientX, t.clientY);
 });
 
+/* 🏃‍♂️ Teleport NO button */
+function moveNo() {
+  const padding = 100;
+  const x = Math.random() * (window.innerWidth - padding * 2) + padding;
+  const y = Math.random() * (window.innerHeight - padding * 2) + padding;
+
+  noBtn.style.left = `${x}px`;
+  noBtn.style.top = `${y}px`;
+}
+
+/* 💥 Heart explosion */
+function explodeHearts() {
+  for (let i = 0; i < 60; i++) {
+    const heart = document.createElement("div");
+    heart.textContent = "💖";
+    heart.style.position = "fixed";
+    heart.style.left = "50%";
+    heart.style.top = "50%";
+    heart.style.fontSize = "24px";
+    heart.style.pointerEvents = "none";
+
+    const angle = Math.random() * Math.PI * 2;
+    const distance = Math.random() * 400;
+
+    heart.animate([
+      { transform: "translate(0,0)", opacity: 1 },
+      {
+        transform: `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`,
+        opacity: 0
+      }
+    ], {
+      duration: 1200,
+      easing: "ease-out"
+    });
+
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 1200);
+  }
+}
+
+/* 💖 YES click */
+yesBtn.addEventListener("click", () => {
+  clearInterval(timer);
+  music.play();
+  explodeHearts();
+
+  document.body.innerHTML = `
+    <div style="
+      height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      background:linear-gradient(135deg,#ff4e78,#ff8fab);
+      color:white;
+      font-family:'Playfair Display',serif;
+      text-align:center;
+    ">
+      <h1 style="font-size:4rem;">Laura 💖</h1>
+      <h2 style="font-size:2.5rem;">You’re my Valentine.</h2>
+      <p style="font-size:1.6rem;">Best choice ever 💘</p>
+    </div>
+  `;
+});
