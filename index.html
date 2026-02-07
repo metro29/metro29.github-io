@@ -2,22 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Valentine?</title>
+  <title>Laura 💖</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="container">
-    <h1>Will you be my Valentine? 💘</h1>
+
+  <div id="timer">⏳ Time left: <span id="time">15</span>s</div>
+
+  <div class="card">
+    <h1>Laura 💘</h1>
+    <h2>Will you be my Valentine?</h2>
 
     <div class="buttons">
-      <button id="yesBtn">YES 💖</button>
-      <button id="noBtn">NO 💔</button>
+      <button id="yes">Yes 💖</button>
+      <button id="no">No 💔</button>
     </div>
-
-    <p id="message"></p>
   </div>
+
+  <!-- Music (royalty-free style) -->
+  <audio id="music" loop>
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_5e1cfcda32.mp3" type="audio/mpeg">
+  </audio>
 
   <script src="script.js"></script>
 </body>
 </html>
-
